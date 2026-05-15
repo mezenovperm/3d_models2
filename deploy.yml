@@ -20,7 +20,7 @@ jobs:
       - name: Checkout with LFS
         uses: actions/checkout@v4
         with:
-          lfs: true  # 👈 КЛЮЧЕВОЙ параметр — скачивает реальные LFS-файлы
+          lfs: true
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
