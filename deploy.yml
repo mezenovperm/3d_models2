@@ -27,7 +27,7 @@ jobs:
           mkdir -p ./assets/
           # Скачиваем файл (укажите ВЕРНОЕ имя и версию)
           curl -L -o ./assets/00_.32.gltf \
-          https://github.com/mezenovperm/3d_models2/releases/download/3d-models_kot32/00_.32.gltf
+          https://github.com/mezenovperm/3d_models2/releases/tag/3d-models_kot32
         shell: bash
 
       # Загружаем всё (ваш index.html и скачанную модель) в Pages
