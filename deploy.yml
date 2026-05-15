@@ -3,7 +3,7 @@ name: Deploy 3D model to Pages
 on:
   push:
     branches: ["main"]
-  workflow_dispatch:
+  workflow_dispatch:  # Позволяет запустить вручную
 
 permissions:
   contents: read
@@ -17,16 +17,26 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout with LFS
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
-      
+
+      # 🔥 ГЛАВНАЯ МАГИЯ: Скачиваем вашу модель из Release
+      - name: Download model from Release
+        run: |
+          # Создаём папку, куда положим модель
+          mkdir -p ./assets/
+          # Скачиваем файл (укажите ВЕРНОЕ имя и версию)
+          curl -L -o ./assets/00_.32.gltf \
+          https://github.com/mezenovperm/3d_models2/releases/download/3d-models_kot32/00_.32.gltf
+        shell: bash
+
+      # Загружаем всё (ваш index.html и скачанную модель) в Pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './'
-      
+          path: './' 
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
